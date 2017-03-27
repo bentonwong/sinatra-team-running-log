@@ -23,11 +23,26 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/login' do
-    erb :'runners/login'
+    !logged_in? ? (erb :'runners/login') : (redirect to '/workouts')
   end
 
   post '/login' do
-    redirect to '/login'
+    @runner = Runner.find_by(email: params["email"])
+   if !!@runner && @runner.authenticate(params[:password])
+     session[:id] = @runner.id
+     redirect to '/workouts'
+   else
+     redirect to '/login'
+   end
+  end
+
+  get '/logout' do
+    if logged_in?
+      session.clear
+      redirect to '/login'
+    else
+      redirect to '/'
+    end
   end
 
   helpers do
