@@ -1,4 +1,5 @@
 require './config/environment'
+require 'pry'
 
 class ApplicationController < Sinatra::Base
 
@@ -15,6 +16,10 @@ class ApplicationController < Sinatra::Base
 
   get '/signup' do
     erb :'runners/create_runner'
+  end
+
+  post '/signup' do
+    redirect to '/login'
   end
 
   get '/login' do

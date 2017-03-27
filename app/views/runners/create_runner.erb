@@ -8,17 +8,14 @@
     <h1>Your Team Running Log | Sign Up</h1><br>
 
     <form action="/signup" method="post">
-      Name: <br><input type="text" name="name" size="50" ></input><br><br>
-      Username: <br><input type="text" name="username" size="50" ></input><br><br>
-      Email: <br><input type="email" name="email" size="50" ></input><br><br>
-      Password: <br><input type="password" name="password" size="50" ></input><br><br>
-      Birthday: <br><input type="date" name="birthday" size="50" ></input><br><br>
+      Name: <br><input type="text" name="name" size="50" required></input><br><br>
+      Username: <br><input type="text" name="username" size="50" required></input><br><br>
+      Password: <br><input type="password" name="password" size="50" required></input><br><br>
+      Birthday: <br><input type="date" name="birthday" max="<%= Time.now.strftime("%F") %>" size="50" required></input><br><br>
       Gender:
-      <br><form>
-          <input type="radio" name="gender" value="male"> Male<br>
-          <input type="radio" name="gender" value="female"> Female<br>
-        </form><br>
-      <input type="submit" value="Sign Up">
+        <br><input type="radio" name="gender" value="male" required> Male<br>
+        <input type="radio" name="gender" value="female"> Female<br>
+        <br><input type="submit" value="Sign Up">
     </form>
 
   </body>
