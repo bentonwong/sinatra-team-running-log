@@ -15,15 +15,22 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/workout' do
-    erb :'workouts/workouts'
+    @runner = current_user if logged_in?
+    logged_in? ? (erb :'workouts/works') : (redirect to '/login')
   end
 
   get '/signup' do
-    erb :'runners/create_runner'
+    !logged_in? ? (erb :'runners/create_runners') : (redirect to '/workouts')
   end
 
   post '/signup' do
-    redirect to '/login'
+    if !params.values.any? {|value| value.empty?}
+      runner = Runner.create(params)
+      session[:id] = runner.id
+      redirect to '/workouts'
+    else
+      redirect to '/signup'
+    end
   end
 
   get '/login' do
