@@ -26,5 +26,18 @@ class ApplicationController < Sinatra::Base
     erb :'runners/login'
   end
 
+  post '/login' do
+    redirect to '/login'
+  end
+
+  helpers do
+    def logged_in?
+      !!session[:id]
+    end
+
+    def current_user
+      User.find_by_id(session[:id])
+    end
+  end
 
 end
