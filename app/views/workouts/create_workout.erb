@@ -1,1 +1,17 @@
-"this is the create workout page"
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Enter New Workout</title>
+  </head>
+  <body>
+    <h1>Your Team Running Log</h1>
+    <form action="/workouts" method="post">
+      Enter date of workout: <br><input type="date" name="birthday" max="<%= Time.now.strftime("%F") %>" required></input><br><br>
+      Enter distance ran (in miles, e.g. 3.5): <br><input type="date" name="birthday" max="<%= Time.now.strftime("%F") %>" size="25" required></input><br><br>
+      <input type="submit" value='submit'>
+      <br>
+      <br>
+      <button type="button"><a href='/workouts'>Go back</a></button>
+    </form>
+  </body>
+</html>

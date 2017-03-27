@@ -16,7 +16,7 @@ class ApplicationController < Sinatra::Base
 
   get '/workout' do
     @runner = current_user if logged_in?
-    logged_in? ? (erb :'workouts/works') : (redirect to '/login')
+    logged_in? ? (erb :'workouts/workouts') : (redirect to '/login')
   end
 
   get '/signup' do
