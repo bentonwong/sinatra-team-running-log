@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class Runner < ActiveRecord::Base
 
   has_many :workouts
   has_secure_password

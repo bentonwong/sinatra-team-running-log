@@ -14,13 +14,13 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
-  get '/workout' do
+  get '/workouts' do
     @runner = current_user if logged_in?
     logged_in? ? (erb :'workouts/workouts') : (redirect to '/login')
   end
 
   get '/signup' do
-    !logged_in? ? (erb :'runners/create_runners') : (redirect to '/workouts')
+    !logged_in? ? (erb :'runners/create_runner') : (redirect to '/workouts')
   end
 
   post '/signup' do
@@ -62,7 +62,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def current_user
-      User.find_by_id(session[:id])
+      Runner.find_by_id(session[:id])
     end
   end
 
