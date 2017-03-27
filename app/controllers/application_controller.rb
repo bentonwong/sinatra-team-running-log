@@ -14,6 +14,10 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
+  get '/workout' do
+    erb :'workouts/workouts'
+  end
+
   get '/signup' do
     erb :'runners/create_runner'
   end
