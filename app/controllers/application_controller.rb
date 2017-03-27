@@ -17,5 +17,9 @@ class ApplicationController < Sinatra::Base
     erb :'runners/create_runner'
   end
 
+  get '/login' do
+    erb :'runners/login'
+  end
+
 
 end
