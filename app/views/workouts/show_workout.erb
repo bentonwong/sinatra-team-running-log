@@ -5,21 +5,21 @@
   </head>
   <body>
     <h1>Your Team Running Log</h1>
-    <p>Hello, <%= Runner.find(@workout.runner_id).name %>! (<a href='/logout'>logout</a>)</p>
+    <p>Hello, <%= Runner.find_by_id(session[:id]).name %>! (<a href='/logout'>logout</a>)</p>
     <p><b><%=@workout.workout_date.strftime("%a, %b %d, %Y") %> | Workout</b></p>
-    <h2>Ran <%= @workout.distance %> miles</h2>
+    <h2><%= Runner.find_by_id(@workout.runner_id).name %> ran <%= @workout.distance %> miles.</h2>
     <p><i>Created on <%= @workout.updated_at.strftime("%c %Z") %> • Last updated on <%= @workout.updated_at.strftime("%c %Z") %></i></p>
     <br>
     <button type="button"><a href='/workouts' style="text-decoration:none">Go Back</a></button>
-    <button type="button"><a href="/workouts/<%= @workout.id %>/edit" style="text-decoration:none">Edit Workout</a></button>
+    <button <%="style='display: none;'" if session[:id] != @workout.runner_id %> type="button"><a href="/workouts/<%= @workout.id %>/edit" style="text-decoration:none">Edit Workout</a></button>
     <br>
     <br>
 
-    <form action="/workouts/<%= @workout.id %>/delete" method="post">
+    <form <%="style='display: none;'" if session[:id] != @workout.runner_id %> action="/workouts/<%= @workout.id %>/delete" method="post">
       <input id="hidden" type="hidden" name="_method" value="delete">
       <input type="hidden" name="content">
-    <input type="submit" value="Delete Workout">
+    <input type="submit"  value="Delete Workout">
 
-    </form>
+  </form>
   </body>
 </html>
