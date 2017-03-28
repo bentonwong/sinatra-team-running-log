@@ -43,7 +43,16 @@ class WorkoutsController < Sinatra::Base
   end
 
   get '/workouts/:id/edit' do
-    "hello"
+    @workout = Workout.find_by_id(params[:id])
+    if logged_in?
+      if current_user.id == @workout.runner_id
+        !!@workout ? (erb :'workouts/edit_workout') : (redirect to '/workouts')
+      else
+        redirect to '/workouts'
+      end
+    else
+      redirect to '/login'
+    end
   end
 
   helpers do
