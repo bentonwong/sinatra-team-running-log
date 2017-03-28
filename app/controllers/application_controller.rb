@@ -23,6 +23,20 @@ class ApplicationController < Sinatra::Base
     logged_in? ? (erb :'workouts/create_workout') : (redirect to '/login')
   end
 
+  post '/workouts' do
+    if logged_in? && (current_user.id == session[:id])
+      if params[:distance].strip.empty?
+        redirect to '/workouts/new'
+      else
+        params[:runner_id] = current_user.id
+        @runner = Workout.create(params)
+        redirect to '/workouts'
+      end
+    else
+      redirect to '/'
+    end
+  end
+
   get '/signup' do
     !logged_in? ? (erb :'runners/create_runner') : (redirect to '/workouts')
   end
@@ -43,12 +57,12 @@ class ApplicationController < Sinatra::Base
 
   post '/login' do
     @runner = Runner.find_by(email: params["email"])
-   if !!@runner && @runner.authenticate(params[:password])
+    if !!@runner && @runner.authenticate(params[:password])
      session[:id] = @runner.id
      redirect to '/workouts'
-   else
+    else
      redirect to '/login'
-   end
+    end
   end
 
   get '/logout' do

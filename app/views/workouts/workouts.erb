@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Fwitter</title>
+    <title>Your Team Running Log</title>
   </head>
 
   <body>
-    <h1>Your Team Running Log</h1><p>Welcome, @<%= @runner.name %>! (<a href='/logout'>logout</a>)</h1>
+    <h1>Your Team Running Log</h1><p>Welcome, <%= @runner.name %>! (<a href='/logout'>logout</a>)</h1>
     <h2>Workouts | <button type="button"><a href='/workouts/new'>Enter a new workout</a></h2></button>
-
     <ul style="list-style: none;"><% Workout.all.reverse.each do |workout| %>
-      <li><p style="font-size:160%;"><%= workout.date %>: <a href="/workouts/<%= workout.id %>"><%= workout.distance %></a></p></li>
-      <li><p style="font-size:80%;"><i><%= workout.updated_at.strftime("%c %Z") %></i></p></li>
+      <li><p style="font-size:160%;"><%= workout.workout_date %>: <%= Runner.find_by_id(workout.runner_id).name %> ran <a href="/workouts/<%= workout.id %>"><%= workout.distance %></a> miles.</p></li>
+      <li><p style="font-size:80%;"><i>Updated at: <%= workout.updated_at.strftime("%c %Z") %></i></p></li>
       <% end %></ul>
   </body>
 </html>

@@ -6,7 +6,7 @@
   <body>
     <h1>Your Team Running Log</h1>
     <form action="/workouts" method="post">
-      Enter date of workout: <br><input type="date" name="date" max="<%= Time.now.strftime("%F") %>" required></input><br><br>
+      Enter date of workout: <br><input type="date" name="workout_date" max="<%= Time.now.strftime("%F") %>" required></input><br><br>
       Enter distance ran (in miles, e.g. 3.50): <br><input type="number" name="distance" size="10" min="0" required></input><br><br>
       <input type="submit" value='submit'>
       <br>
