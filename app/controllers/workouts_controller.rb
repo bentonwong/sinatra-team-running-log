@@ -16,9 +16,7 @@ class WorkoutsController < ApplicationController
   end
 
   get '/workouts/log/:runner_id' do
-    @workouts = Workout.find_by_runner_id(params[:runner_id]) if logged_in?
-    @runner = Runner.find_by_id(params[:runner_id]) if logged_in?
-    logged_in? ? (erb :'workouts/workouts') : (redirect to '/login')
+    logged_in? ? (@runner = Runner.find_by_id(params[:runner_id]) and erb :'workouts/workouts') : (redirect to '/login')
   end
 
   get '/workouts/new' do
@@ -66,7 +64,6 @@ class WorkoutsController < ApplicationController
       redirect to "/workouts/#{params[:id]}/edit"
     else
       if !!Workout.find_by_id(params[:id])
-        binding.pry
         @workout = Workout.find_by_id(params[:id])
         @workout.update_attributes(:distance => params[:distance],:workout_date => params[:workout_date])
       end

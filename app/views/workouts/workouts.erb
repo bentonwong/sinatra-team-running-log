@@ -7,7 +7,7 @@
   <body>
     <h1>Your Team Running Log</h1><p>Hello, <%= current_user.name %>! (<a href='/logout'>logout</a>)</p>
     <h2><%= @runner.name %>'s Workouts | <button type="button"><a href='/workouts/new' style="text-decoration:none">Log New Workout</a></h2></button>
-    <ul style="list-style-type:none"><% @workouts.order("workout_date DESC").select{|w| w.runner_id == @runner.id}.each do |workout| %>
+    <ul style="list-style-type:none"><% Workout.all.order("workout_date DESC").select{|w| w.runner_id == @runner.id}.each do |workout| %>
       <li><p style="font-size:100%;"><%= workout.workout_date.strftime("%a, %b %d, %Y") %> --><b> <%= Runner.find_by_id(workout.runner_id).name %></b> ran <a href="/workouts/<%= workout.id %>"><%= workout.distance %></a> miles.</p></li>
       <li><p style="font-size:80%;"><i>Updated at: <%= workout.updated_at.strftime("%c %Z") %></i></p></li>
       <% end %></ul>
