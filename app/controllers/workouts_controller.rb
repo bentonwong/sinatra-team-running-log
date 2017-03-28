@@ -11,8 +11,7 @@ class WorkoutsController < ApplicationController
   end
 
   get '/workouts' do
-    @runner = current_user if logged_in?
-    logged_in? ? (erb :'workouts/workouts') : (redirect to '/login')
+    logged_in? ? (redirect to "/workouts/log/#{current_user.id}") : (redirect to '/login')
   end
 
   get '/workouts/log/:runner_id' do
