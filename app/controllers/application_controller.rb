@@ -19,6 +19,10 @@ class ApplicationController < Sinatra::Base
     logged_in? ? (erb :'workouts/workouts') : (redirect to '/login')
   end
 
+  get '/workouts/new' do
+    logged_in? ? (erb :'workouts/create_workout') : (redirect to '/login')
+  end
+
   get '/signup' do
     !logged_in? ? (erb :'runners/create_runner') : (redirect to '/workouts')
   end
