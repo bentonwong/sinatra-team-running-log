@@ -16,7 +16,7 @@ class WorkoutsController < ApplicationController
   end
 
   get '/workouts/log/:runner_id' do
-    logged_in? ? (@runner = Runner.find_by_id(params[:runner_id]) and erb :'workouts/workouts') : (redirect to '/login')
+    logged_in? ? (@runner = Runner.find_by_id(params[:runner_id]) and erb :'workouts/log') : (redirect to '/login')
   end
 
   get '/workouts/new' do
@@ -30,7 +30,7 @@ class WorkoutsController < ApplicationController
       else
         params[:runner_id] = current_user.id
         @runner = Workout.create(params)
-        redirect to '/workouts'
+        redirect to "/workouts/log/#{current_user.id}"
       end
     else
       redirect to '/'
