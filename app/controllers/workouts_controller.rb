@@ -44,7 +44,6 @@ class WorkoutsController < ApplicationController
 
   get '/workouts/:id/edit' do
     @workout = Workout.find_by_id(params[:id])
-    binding.pry
     if logged_in?
       if current_user.id == @workout.runner_id
         !!@workout ? (erb :'workouts/edit_workout') : (redirect to '/workouts')
@@ -53,6 +52,18 @@ class WorkoutsController < ApplicationController
       end
     else
       redirect to '/login'
+    end
+  end
+
+  patch '/workout/:id' do
+    if params[:distance].strip.empty?
+      redirect to "/workouts/#{params[:id]}/edit"
+    else
+      if !!Workout.find_by_id(params[:id])
+        @workout = Workout.find_by_id(params[:id])
+        @workout.update(params).save
+      end
+      redirect to "/workouts/#{@workout.id}"
     end
   end
 
