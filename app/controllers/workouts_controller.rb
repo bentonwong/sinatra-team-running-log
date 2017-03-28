@@ -78,4 +78,8 @@ class WorkoutsController < ApplicationController
     redirect to '/workouts'
   end
 
+  get '/leaderboard' do
+    erb :'workouts/leaderboard'
+  end
+
 end
