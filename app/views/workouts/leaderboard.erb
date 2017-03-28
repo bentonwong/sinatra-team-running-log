@@ -4,5 +4,20 @@
     <title>Your Team Leaderboard</title>
   </head>
     <body>
+     #rank male runners by mileage #rank female runners by mileage (all time, this year, this month)
+     <% Runner.all.select{|r| r.gender == "male"}.each do |runner| %>
+        <% total_mileage[:runner_id] = Workout.all.select {|w| w.runner_id == runner.id}.map {|workout| workout.distance}.sum %>
+        <% end %>
+     <% male_rankings = total_mileage.sort_by{|runner_id, mileage| mileage}.reverse %>
+
+     <% Runner.all.select{|r| r.gender == "female"}.each do |runner| %>
+        <% total_mileage[:runner_id] = Workout.all.select {|w| w.runner_id == runner.id}.map {|workout| workout.distance}.sum %>
+        <% end %>
+     <% female_rankings = total_mileage.sort_by{|runner_id, mileage| mileage}.reverse %>
+
+
+
+
+     #group by age?
 
     </body>
