@@ -14,39 +14,6 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
-  get '/workouts' do
-    @runner = current_user if logged_in?
-    logged_in? ? (erb :'workouts/workouts') : (redirect to '/login')
-  end
-
-  get '/workouts/new' do
-    logged_in? ? (erb :'workouts/create_workout') : (redirect to '/login')
-  end
-
-  post '/workouts' do
-    if logged_in? && (current_user.id == session[:id])
-      if params[:distance].strip.empty?
-        redirect to '/workouts/new'
-      else
-        params[:runner_id] = current_user.id
-        @runner = Workout.create(params)
-        redirect to '/workouts'
-      end
-    else
-      redirect to '/'
-    end
-  end
-
-  get '/workouts/:id' do
-    if logged_in? && (current_user.id == session[:id])
-      @workout = Workout.find_by_id(params[:id])
-      !!@workout ? (erb :'workouts/show_workout') : (redirect to '/workouts')
-      erb :'workouts/show_workout'
-    else
-      redirect to '/login'
-    end
-  end
-
   get '/signup' do
     !logged_in? ? (erb :'runners/create_runner') : (redirect to '/workouts')
   end

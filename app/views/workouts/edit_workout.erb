@@ -10,3 +10,8 @@
         <input id="hidden" type="hidden" name="_method" value="patch">
         Enter date of workout: <br><input type="date" name="workout_date" max="<%= Time.now.strftime("%F") %>" value="@workout.workout_date" required></input><br><br>
         Enter distance ran (in miles, e.g. 3.50): <br><input type="number" name="distance" size="10" min="0" step="0.01" value="@workout.distance" required></input><br><br>
+        <br><br>
+        <input type="submit" value='Submit Changes'>
+    </form>
+  </body>
+</html>
