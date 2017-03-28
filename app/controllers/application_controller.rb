@@ -10,7 +10,7 @@ class ApplicationController < Sinatra::Base
     set :session_secret, "password_security"
   end
 
-  helpers Helper
+  helpers Helpers
 
   get '/' do
     erb :index
