@@ -1,7 +1,7 @@
 require './config/environment'
 require 'pry'
 
-class RunnersController < Sinatra::Base
+class RunnersController < ApplicationController
 
   configure do
     set :public_folder, 'public'
@@ -44,16 +44,6 @@ class RunnersController < Sinatra::Base
       redirect to '/login'
     else
       redirect to '/'
-    end
-  end
-
-  helpers do
-    def logged_in?
-      !!session[:id]
-    end
-
-    def current_user
-      Runner.find_by_id(session[:id])
     end
   end
 

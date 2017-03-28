@@ -1,7 +1,7 @@
 require './config/environment'
 require 'pry'
 
-class WorkoutsController < Sinatra::Base
+class WorkoutsController < ApplicationController
 
   configure do
     set :public_folder, 'public'
@@ -44,6 +44,7 @@ class WorkoutsController < Sinatra::Base
 
   get '/workouts/:id/edit' do
     @workout = Workout.find_by_id(params[:id])
+    binding.pry
     if logged_in?
       if current_user.id == @workout.runner_id
         !!@workout ? (erb :'workouts/edit_workout') : (redirect to '/workouts')
@@ -52,16 +53,6 @@ class WorkoutsController < Sinatra::Base
       end
     else
       redirect to '/login'
-    end
-  end
-
-  helpers do
-    def logged_in?
-      !!session[:id]
-    end
-
-    def current_user
-      Runner.find_by_id(session[:id])
     end
   end
 
