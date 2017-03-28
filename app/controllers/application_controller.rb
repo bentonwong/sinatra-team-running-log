@@ -37,6 +37,11 @@ class ApplicationController < Sinatra::Base
     end
   end
 
+  get '/workouts/:id' do
+    @workout = Workout.find_by_id(params[:id])
+    erb :'workouts/show_workout'
+  end
+
   get '/signup' do
     !logged_in? ? (erb :'runners/create_runner') : (redirect to '/workouts')
   end

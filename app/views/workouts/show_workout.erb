@@ -9,3 +9,16 @@
     <h2><%= @workout.distance %> <%=@workout.workout_date.strftime("%a, %b %d, %Y") %></h2>
     <p><i>Last updated on <%= @workout.updated_at.strftime("%c %Z") %></i></p>
     <br>
+    <button type="button"><a href='/workouts' style="text-decoration:none">Go back</a></button>
+    <button type="button"><a href="/workouts/<%= @workout.id %>/edit" style="text-decoration:none">Edit Workout</a></button>
+    <br>
+    <br>
+
+    <form action="/workouts/<%= @workout.id %>/delete" method="post">
+      <input id="hidden" type="hidden" name="_method" value="delete">
+      <input type="hidden" name="content">
+    <input type="submit" value="Delete Workout">
+
+    </form>
+  </body>
+</html>
