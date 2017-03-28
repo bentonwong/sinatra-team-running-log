@@ -1,1 +1,11 @@
-"this is the show workout page"
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Your Team Running Log</title>
+  </head>
+  <body>
+    <h1>Your Team Running Log</h1>
+    <p><b><%= Runner.find(@workout.runner_id).name %></b> • <%= @workout.created_at.strftime("%b %d, %Y") %></p>
+    <h2><%= @workout.distance %> <%=@workout.workout_date.strftime("%a, %b %d, %Y") %></h2>
+    <p><i>Last updated on <%= @workout.updated_at.strftime("%c %Z") %></i></p>
+    <br>
