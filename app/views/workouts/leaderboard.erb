@@ -5,19 +5,19 @@
   </head>
     <body>
      #rank male runners by mileage #rank female runners by mileage (all time, this year, this month)
+     <%binding.pry%>
      <% Runner.all.select{|r| r.gender == "male"}.each do |runner| %>
-        <% total_mileage[:runner_id] = Workout.all.select {|w| w.runner_id == runner.id}.map {|workout| workout.distance}.sum %>
+        <% total_mileage[runner.id] = Workout.all.select {|w| w.runner_id == runner.id}.map {|workout| workout.distance}.sum %>
         <% end %>
-     <% male_rankings = total_mileage.sort_by{|runner_id, mileage| mileage}.reverse %>
+     <% male_rankings = total_mileage.sort_by{|runner_id, mileage| mileage}.reverse.to_h %>
+     <%male_rankings.each do |id,total|%>
+     <li><%= Runner.find_by_id(id).name %>: <%= total.to_s%></li>
+     <% end %>
 
      <% Runner.all.select{|r| r.gender == "female"}.each do |runner| %>
         <% total_mileage[:runner_id] = Workout.all.select {|w| w.runner_id == runner.id}.map {|workout| workout.distance}.sum %>
         <% end %>
      <% female_rankings = total_mileage.sort_by{|runner_id, mileage| mileage}.reverse %>
 
-
-
-
-     #group by age?
 
     </body>
