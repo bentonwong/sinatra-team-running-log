@@ -55,13 +55,14 @@ class WorkoutsController < ApplicationController
     end
   end
 
-  patch '/workout/:id' do
+  patch '/workouts/:id' do
     if params[:distance].strip.empty?
       redirect to "/workouts/#{params[:id]}/edit"
     else
       if !!Workout.find_by_id(params[:id])
+        binding.pry
         @workout = Workout.find_by_id(params[:id])
-        @workout.update(params).save
+        @workout.update_attributes(:distance => params[:distance],:workout_date => params[:workout_date])
       end
       redirect to "/workouts/#{@workout.id}"
     end
