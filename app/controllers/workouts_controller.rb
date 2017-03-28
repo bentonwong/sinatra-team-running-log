@@ -15,6 +15,12 @@ class WorkoutsController < ApplicationController
     logged_in? ? (erb :'workouts/workouts') : (redirect to '/login')
   end
 
+  get '/workouts/log/:runner_id' do
+    @workouts = Workout.find_by_runner_id(params[:runner_id]) if logged_in?
+    @runner = Runner.find_by_id(params[:runner_id]) if logged_in?
+    logged_in? ? (erb :'workouts/workouts') : (redirect to '/login')
+  end
+
   get '/workouts/new' do
     logged_in? ? (erb :'workouts/create_workout') : (redirect to '/login')
   end
