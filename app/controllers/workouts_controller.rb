@@ -79,6 +79,8 @@ class WorkoutsController < ApplicationController
   end
 
   get '/leaderboard' do
+    @rankings_male = rankings("male","this month")
+    @rankings_female = rankings("female","this month")
     erb :'workouts/leaderboard'
   end
 

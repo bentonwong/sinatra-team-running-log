@@ -3,21 +3,15 @@
   <head>
     <title>Your Team Leaderboard</title>
   </head>
-    <body>
-     #rank male runners by mileage #rank female runners by mileage (all time, this year, this month)
-     <%binding.pry%>
-     <% Runner.all.select{|r| r.gender == "male"}.each do |runner| %>
-        <% total_mileage[runner.id] = Workout.all.select {|w| w.runner_id == runner.id}.map {|workout| workout.distance}.sum %>
-        <% end %>
-     <% male_rankings = total_mileage.sort_by{|runner_id, mileage| mileage}.reverse.to_h %>
-     <%male_rankings.each do |id,total|%>
-     <li><%= Runner.find_by_id(id).name %>: <%= total.to_s%></li>
-     <% end %>
+  <body>
+    <h1>Top Runners by Mileage | Male | All-Time</h1>
+      <ol><% @rankings_male.each do |runner_id,total_mileage| %>
+          <li><a href='/workouts/log/<%= runner_id %>'><%= Runner.find_by_id(runner_id).name %></a> - <%= total_mileage %> miles</li>
+      <% end %></ol>
 
-     <% Runner.all.select{|r| r.gender == "female"}.each do |runner| %>
-        <% total_mileage[:runner_id] = Workout.all.select {|w| w.runner_id == runner.id}.map {|workout| workout.distance}.sum %>
-        <% end %>
-     <% female_rankings = total_mileage.sort_by{|runner_id, mileage| mileage}.reverse %>
-
-
-    </body>
+      <h1>Top Runners by Mileage | Female | All-Time</h1>
+        <ol><% @rankings_female.each do |runner_id,total_mileage| %>
+            <li><a href='/workouts/log/<%= runner_id %>'><%= Runner.find_by_id(runner_id).name %></a> - <%= total_mileage %> miles</li>
+        <% end %></ol>
+  </body>
+</html>
