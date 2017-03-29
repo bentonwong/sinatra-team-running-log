@@ -1,41 +1,33 @@
-# Sinatra::Team::Running::Log
+# Running Team Mileage Log by Benton Wong
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/sinatra/team/running/log`. To experiment with that code, run `bin/console` for an interactive prompt.
+This application allows members of running teams (e.g. running clubs, cross country, track teams) to enter mileage, date, and comments about their runs into an online, secure log.  Each member registers to receive their own individual account with password.  Only that member can create, edit, and delete their log entry.
 
-TODO: Delete this and the text above, and describe your gem
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'sinatra-team-running-log'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install sinatra-team-running-log
+The data entered by each member is available for other registered users to view.  The data is also used to populate a leaderboard that allows all users to see who has run the most miles by gender and by the current month, current year, and all time.
 
 ## Usage
 
-TODO: Write usage instructions here
+New Users
 
-## Development
+  1) Go to '/signup'.
+  2) Provide a valid name, email, password, and select gender.
+  3) Select 'Sign Up'
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Current Users
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+  To login, go to '/login' and fill in the required credentials.
+
+  To create a new workout, go to '/workouts/new', and fill out the fields.
+
+  To edit a workout, go to '/workouts, find the workout in your workouts list that you wish to edit by clicking on the hyperlink.  On that page, there is a link to edit that workout.  Also, if you wish to delete a workout, there is a link to delete it on that same page.
+
+  To view the team leaderboard, go to '/leaderboard'.
+
+  To logout, go to '/logout'.
 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/bentonwong/sinatra-team-running-log. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
-
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-

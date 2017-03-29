@@ -22,6 +22,6 @@ Users can create accounts and content.  Only the user who created the content ca
 
 [x] You should validate user input to ensure that bad data isn't created.
 
-Create Runners requires users to provide name, email, password, gender.  User cannot leave name, email, or password blank and are required fields, which the user must provide input in order to proceed.  The application will also check to see if the email address provides is already in the database.  If the the email already exists, the user will be redirected to '/'.
+Create Runners requires users to provide name, email, password, gender.  User cannot leave name, email, or password blank and are required fields, which the user must provide input in order to proceed.  The application will also check to see if the email address provides is already in the database.  If the the email already exists, the user will be redirected to '/'.  Also, gender is selected by choosing a radio button; the radio button has only 2 choices and only 1 can be submitted, and it is a required field.
 
 Create Workout requires users to provide workout date and distance.  The user can pick a date from a calendar or the date picker using HTML.  Also, the distance must be a number using HTML to validate.  These 2 are required fields.  The notes field is optional and puts a character limitation of 500 characters.  Edit Workout has the same methods to validate the data however, none of the fields are required.
