@@ -15,7 +15,7 @@ class WorkoutsController < ApplicationController
   end
 
   get '/workouts/log/:runner_id' do
-    @runner = Runner.find_by_id(params[:runner_id]) 
+    @runner = Runner.find_by_id(params[:runner_id])
     @workouts = Workout.where("runner_id = ?", @runner.id).order("workout_date DESC")
     logged_in? ? (erb :'workouts/log') : (redirect to '/login')
   end
@@ -81,12 +81,8 @@ class WorkoutsController < ApplicationController
   end
 
   get '/leaderboard' do
-    @rankings_male_month = rankings2("male","this month")
-    @rankings_female_month = rankings2("female","this month")
-    @rankings_male_year = rankings2("male","this year")
-    @rankings_female_year = rankings2("female","this year")
-    @rankings_male_all_time = rankings2("male","all time")
-    @rankings_female_all_time = rankings2("female","all time")
+    @time_periods = ["This Month", "This Year" , "All Time"]
+    @genders = ["male","female"]
     erb :'workouts/leaderboard'
   end
 

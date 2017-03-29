@@ -5,39 +5,15 @@
   </head>
   <body>
     <h1>Your Team Running Log</h1><p>Hello, <a href="/workouts/log/<%= current_user.id %>"><%= current_user.name %></a>! (<a href='/logout'>logout</a>)</p>
-    <form action ="/leaderboard" method ="post">
-      <input type="radio" name="period" value="all time"> All time<br>
-      <input type="radio" name="period" value="this year"> This year<br>
-      <input type="radio" name="period" value="this month"> This month<br>
-      <input type="submit" value='Submit'>
-    </form>
-    <h1>Top Runners by Mileage | Male | This Month</h1>
-      <ol><% @rankings_male_month.each do |runner_id,total_mileage| %>
-          <li><a href='/workouts/log/<%= runner_id %>'><%= Runner.find_by_id(runner_id).name %></a> - <%= total_mileage %> miles</li>
-      <% end %></ol>
 
-      <h1>Top Runners by Mileage | Female | This Month</h1>
-        <ol><% @rankings_female_month.each do |runner_id,total_mileage| %>
-            <li><a href='/workouts/log/<%= runner_id %>'><%= Runner.find_by_id(runner_id).name %></a> - <%= total_mileage %> miles</li>
-        <% end %></ol>
+    <h2>Top Runners by Mileage | Male | This Month</h2>
 
-        <h1>Top Runners by Mileage | Male | This Year</h1>
-          <ol><% @rankings_male_year.each do |runner_id,total_mileage| %>
-              <li><a href='/workouts/log/<%= runner_id %>'><%= Runner.find_by_id(runner_id).name %></a> - <%= total_mileage %> miles</li>
-          <% end %></ol>
+    <ol><% @rankings_male_month.each do |runner_id,total_mileage| %>
+        <li><a href='/workouts/log/<%= runner_id %>'><%= Runner.find_by_id(runner_id).name %></a> - <%= total_mileage %> miles</li>
+    <% end %></ol>
 
-          <h1>Top Runners by Mileage | Female | This Year</h1>
-            <ol><% @rankings_female_year.each do |runner_id,total_mileage| %>
-                <li><a href='/workouts/log/<%= runner_id %>'><%= Runner.find_by_id(runner_id).name %></a> - <%= total_mileage %> miles</li>
-            <% end %></ol>
-            <h1>Top Runners by Mileage | Male | All Time</h1>
-              <ol><% @rankings_male_all_time.each do |runner_id,total_mileage| %>
-                  <li><a href='/workouts/log/<%= runner_id %>'><%= Runner.find_by_id(runner_id).name %></a> - <%= total_mileage %> miles</li>
-              <% end %></ol>
 
-              <h1>Top Runners by Mileage | Female | All Time</h1>
-                <ol><% @rankings_female_all_time.each do |runner_id,total_mileage| %>
-                    <li><a href='/workouts/log/<%= runner_id %>'><%= Runner.find_by_id(runner_id).name %></a> - <%= total_mileage %> miles</li>
-                <% end %></ol>
+
+
   </body>
 </html>
