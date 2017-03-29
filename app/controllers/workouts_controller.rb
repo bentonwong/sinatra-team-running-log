@@ -30,7 +30,6 @@ class WorkoutsController < ApplicationController
         redirect to '/workouts/new'
       else
         params[:runner_id] = current_user.id
-        binding.pry
         @runner = Workout.create(params)
         redirect to "/workouts/log/#{current_user.id}"
       end
