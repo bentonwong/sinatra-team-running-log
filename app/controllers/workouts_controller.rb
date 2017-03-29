@@ -66,7 +66,7 @@ class WorkoutsController < ApplicationController
     else
       if !!Workout.find_by_id(params[:id])
         @workout = Workout.find_by_id(params[:id])
-        @workout.update_attributes(:distance => params[:distance],:workout_date => params[:workout_date])
+        @workout.update_attributes(:distance => params[:distance],:workout_date => params[:workout_date],:notes => params[:notes])
       end
       redirect to "/workouts/#{@workout.id}"
     end
