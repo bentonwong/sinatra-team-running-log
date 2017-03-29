@@ -79,13 +79,12 @@ class WorkoutsController < ApplicationController
   end
 
   get '/leaderboard' do
-    binding.pry
-    @rankings_male_month = rankings("male","this month")
-    @rankings_female_month = rankings("female","this month")
-    @rankings_male_year = rankings("male","this year")
-    @rankings_female_year = rankings("female","this year")
-    @rankings_male_all_time = rankings("male","all time")
-    @rankings_female_all_time = rankings("female","all time")
+    @rankings_male_month = rankings2("male","this month")
+    @rankings_female_month = rankings2("female","this month")
+    @rankings_male_year = rankings2("male","this year")
+    @rankings_female_year = rankings2("female","this year")
+    @rankings_male_all_time = rankings2("male","all time")
+    @rankings_female_all_time = rankings2("female","all time")
     erb :'workouts/leaderboard'
   end
 
