@@ -7,6 +7,7 @@
   <body>
     <h1>Your Team Running Log</h1><p>Hello, <a href="/workouts/log/<%= current_user.id %>"><%= current_user.name %></a>! (<a href='/logout'>logout</a>)</p>
     <button type="button" <%="style='display: none;'" if session[:id] != @runner.id %>><a href='/workouts/new' style="text-decoration:none">Log New Workout</a></button>
+    <button type="button"><a href='/leaderboard' style="text-decoration:none">Team Leaderboard</a></button>
     <h2><%= @runner.name %>'s Workouts</h2></button>
     <ul style="list-style-type:none"><% @workouts.each do |workout| %>
       <li><p style="font-size:100%;"><%= workout.workout_date.strftime("%a, %b %d, %Y") %> --><b> <%= Runner.find_by_id(workout.runner_id).name %></b> ran <a href="/workouts/<%= workout.id %>"><%= workout.distance %></a> miles.</p></li>

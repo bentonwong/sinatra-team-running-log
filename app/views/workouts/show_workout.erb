@@ -8,7 +8,7 @@
     <p>Hello, <%= Runner.find_by_id(session[:id]).name %>! (<a href='/logout'>logout</a>)</p>
     <p><b><%=@workout.workout_date.strftime("%a, %b %d, %Y") %> | Workout</b></p>
     <h2><%= Runner.find_by_id(@workout.runner_id).name %> ran <%= @workout.distance %> miles.</h2>
-    <p>Notes: <%= @workout.notes %></p><br>
+    <p><%= "Notes: " if !!@workout.notes %><%= @workout.notes %></p><br>
     <br>
     <p><i>Created on <%= @workout.updated_at.strftime("%c %Z") %> • Last updated on <%= @workout.updated_at.strftime("%c %Z") %></i></p>
     <button type="button"><a href='/workouts' style="text-decoration:none">Go Back</a></button>
