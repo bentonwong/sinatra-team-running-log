@@ -20,7 +20,7 @@ class RunnersController < ApplicationController
       session[:id] = runner.id
       redirect to '/workouts'
     else
-      redirect to '/signup'
+      redirect to '/'
     end
   end
 
