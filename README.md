@@ -1,4 +1,4 @@
-# Running Team Online Mileage Log by Benton Wong
+# LogMyRun (Online Running Log for Running Teams) by Benton Wong
 
 This application allows members of running teams (e.g. running clubs, cross country, track teams) to enter mileage, date, and comments about their runs into an online, secure log.  Each member registers to receive their own individual account with password.  Only that member can create, edit, and delete their log entry.
 

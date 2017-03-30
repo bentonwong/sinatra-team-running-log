@@ -64,9 +64,9 @@ class WorkoutsController < ApplicationController
     if params[:distance].strip.empty?
       redirect to "/workouts/#{params[:id]}/edit"
     else
-      if !!Workout.find_by_id(params[:id]) && current_user.id == @workout.runner_id
+      if !!Workout.find_by_id(params[:id])
         @workout = Workout.find_by_id(params[:id])
-        @workout.update_attributes(:distance => params[:distance],:workout_date => params[:workout_date],:notes => params[:notes])
+        current_user.id == @workout.runner_id if @workout.update_attributes(:distance => params[:distance],:workout_date => params[:workout_date],:notes => params[:notes])
       end
       redirect to "/workouts/#{@workout.id}"
     end

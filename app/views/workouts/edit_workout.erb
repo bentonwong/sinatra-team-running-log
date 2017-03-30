@@ -11,7 +11,6 @@
         <br>Enter date of workout: <input type="date" name="workout_date" max="<%= Time.now.strftime("%F") %>" value="<%= @workout.workout_date %>"></input><br>
         <br>Enter distance: <input type="number" name="distance" style="width: 55px;" min="0" step="0.01" value="<%= @workout.distance.to_s%>"></input> miles<br>
         <br>Enter notes (e.g. location, how you felt): <p><textarea type="text" name="notes" maxlength = "500" rows="5" cols="100"><%= @workout.notes %></textarea><br>
-        <br><input type="submit" value='Submit'>
         <br><br>
         <input type="submit" value='Submit Changes'>
     </form>
