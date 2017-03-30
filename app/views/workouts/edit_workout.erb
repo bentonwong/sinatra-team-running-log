@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Edit Workout</title>
+    <title>LogMyRun | Edit Workout</title>
   </head>
   <body>
-    <h1>Your Team Running Log</h1>
-    <p><i>Edit your workout information below.</i></p>
+    <h1>LogMyRun</h1>
+    <p><i>Edit your workout information below:</i></p>
     <form action="/workouts/<%= @workout.id %>" method="post">
         <input id="hidden" type="hidden" name="_method" value="patch">
         <br>Enter date of workout: <input type="date" name="workout_date" max="<%= Time.now.strftime("%F") %>" value="<%= @workout.workout_date %>"></input><br>

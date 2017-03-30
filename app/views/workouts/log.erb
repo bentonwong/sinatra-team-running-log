@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Your Team Running Log</title>
+    <title>LogMyRun | Workout Log</title>
   </head>
 
   <body>
-    <h1>Your Team Running Log</h1><p>Hello, <a href="/workouts/log/<%= current_user.id %>"><%= current_user.name %></a>! (<a href='/logout'>logout</a>)</p>
+    <h1>LogMyRun</h1>
+    <p>Hello, <a href="/workouts/log/<%= current_user.id %>"><%= current_user.name %></a>! (<a href='/logout'>logout</a>)</p>
     <button type="button" <%="style='display: none;'" if session[:id] != @runner.id %>><a href='/workouts/new' style="text-decoration:none">Log New Workout</a></button>
     <button type="button"><a href='/leaderboard' style="text-decoration:none">Team Leaderboard</a></button>
     <h2><%= @runner.name %>'s Workouts</h2></button>

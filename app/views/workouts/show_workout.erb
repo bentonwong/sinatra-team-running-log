@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Your Team Running Log</title>
+    <title>LogMyRun | Workout</title>
   </head>
   <body>
-    <h1>Your Team Running Log</h1>
+    <h1>LogMyRun</h1>
     <p>Hello, <%= Runner.find_by_id(session[:id]).name %>! (<a href='/logout'>logout</a>)</p>
     <p><b><%=@workout.workout_date.strftime("%a, %b %d, %Y") %> | Workout</b></p>
     <h2><%= Runner.find_by_id(@workout.runner_id).name %> ran <%= @workout.distance %> miles.</h2>
