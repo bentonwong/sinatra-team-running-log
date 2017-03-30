@@ -41,6 +41,7 @@ class WorkoutsController < ApplicationController
   get '/workouts/:id' do
     if logged_in? && (current_user.id == session[:id])
       @workout = Workout.find_by_id(params[:id])
+      @runner = Runner.find_by_id(@workout.runner_id)
       !!@workout ? (erb :'workouts/show_workout') : (redirect to '/workouts')
     else
       redirect to '/login'
@@ -83,6 +84,7 @@ class WorkoutsController < ApplicationController
   get '/leaderboard' do
     @time_periods = ["This Month", "This Year" , "All Time"]
     @genders = ["male","female"]
+    @current_time = Time.now
     erb :'workouts/leaderboard'
   end
 

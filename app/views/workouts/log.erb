@@ -11,7 +11,7 @@
     <button type="button"><a href='/leaderboard' style="text-decoration:none">Team Leaderboard</a></button>
     <h2><%= @runner.name %>'s Workouts</h2></button>
     <ul style="list-style-type:none"><% @workouts.each do |workout| %>
-      <li><p style="font-size:100%;"><%= workout.workout_date.strftime("%a, %b %d, %Y") %> --><b> <%= Runner.find_by_id(workout.runner_id).name %></b> ran <a href="/workouts/<%= workout.id %>"><%= workout.distance %></a> miles.</p></li>
+      <li><p style="font-size:100%;"><%= workout.workout_date.strftime("%a, %b %d, %Y") %> --><b> <%= @runner.name %></b> ran <a href="/workouts/<%= workout.id %>"><%= workout.distance %></a> miles.</p></li>
       <li><p style="font-size:80%;"><i>Updated at: <%= workout.updated_at.strftime("%c %Z") %></i></p></li>
       <% end %></ul>
   </body>

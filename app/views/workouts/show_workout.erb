@@ -5,11 +5,11 @@
   </head>
   <body>
     <h1>LogMyRun</h1>
-    <p>Hello, <a href="/workouts/log/<%= current_user.id %>"><%= Runner.find_by_id(session[:id]).name %></a>! (<a href='/logout'>logout</a>)</p>
+    <p>Hello, <a href="/workouts/log/<%= current_user.id %>"><%= current_user.name %></a>! (<a href='/logout'>logout</a>)</p>
     <p><b><%=@workout.workout_date.strftime("%a, %b %d, %Y") %> | Workout</b></p>
-    <h2><%= Runner.find_by_id(@workout.runner_id).name %> ran <%= @workout.distance %> miles.</h2>
+    <h2><%= @runner.name %> ran <%= @workout.distance %> miles.</h2>
     <p><%= "Notes: " if !!@workout.notes %><%= @workout.notes %></p><br>
-    <p><i>Created on <%= @workout.updated_at.strftime("%c %Z") %> • Last updated on <%= @workout.updated_at.strftime("%c %Z") %></i></p>
+    <p><i>Created on <%= @workout.created_at.strftime("%c %Z") %> • Last updated on <%= @workout.updated_at.strftime("%c %Z") %></i></p>
     <button type="button"><a href='/workouts' style="text-decoration:none">Go To My Workouts</a></button>
     <button <%="style='display: none;'" if session[:id] != @workout.runner_id %> type="button"><a href="/workouts/<%= @workout.id %>/edit" style="text-decoration:none">Edit Workout</a></button>
     <form <%="style='display: none;'" if session[:id] != @workout.runner_id %> action="/workouts/<%= @workout.id %>/delete" method="post">
