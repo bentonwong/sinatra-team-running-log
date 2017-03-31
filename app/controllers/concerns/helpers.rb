@@ -11,8 +11,6 @@ module Helpers
   end
 
   def rankings(gender,period)
-    total_mileage_by_runner_id = Hash.new(0)
-
     case period
       when "All Time"
         start_date = 0
@@ -21,14 +19,19 @@ module Helpers
       when "This Month"
         start_date = Time.now.beginning_of_month
     end
+    query_results = Workout.where("gender = ? AND workout_date >= ?", gender, start_date).joins("INNER JOIN runners ON runners.id = workouts.runner_id")
+    format_query_results_into_rankings(query_results)
+  end
 
-    query_results = Workout.where("gender = ? AND workout_date >= ?", gender, start_date).joins("INNER JOIN runners ON runners.id = workouts.runner_id") #returns the requested workouts matching conditions
+  def runner_name(runner_id)
+    Runner.find_by_id(runner_id).name
+  end
 
-    query_results.each do |workout| #sums up the mileage by runner_id and puts it into a hash
-      total_mileage_by_runner_id[workout.runner_id] += workout.distance
-    end
-
-    total_mileage_by_runner_id.sort_by{|runner_id, mileage| mileage}.reverse #sorts the hash by mileage and puts it into an array
+  def format_query_results_into_rankings(query_results)
+    total_mileage_by_runner_id = Hash.new(0)
+    query_results.each{|workout| total_mileage_by_runner_id[workout.runner_id] += workout.distance}
+    total_mileage_by_runner_id.sort_by{|runner_id, mileage| mileage}.reverse
+    total_mileage_by_runner_id.collect{|runner_data| runner_data.insert(1,runner_name(runner_data[0]))}
   end
 
 end
