@@ -16,7 +16,7 @@ class WorkoutsController < ApplicationController
 
   get '/workouts/log/:runner_id' do
     @runner = find_runner_by_id(params[:runner_id])
-    @workouts = Workout.where("runner_id = ?", @runner.id).order("workout_date DESC")
+    @workouts = Workout.all_workouts_by_runner_id_rev_chron(@runner.id)
     @new_workout_button = "<button type='button'><a href='/workouts/new' style='text-decoration:none'>Log New Workout</a></button>" if session[:id] == @runner.id
     logged_in? ? (erb :'workouts/log') : (redirect to '/login')
   end
@@ -81,9 +81,7 @@ class WorkoutsController < ApplicationController
 
   delete '/workouts/:id/delete' do
     @workout = find_workout_by_id(params[:id])
-    if logged_in? && current_user.id == @workout.runner_id
-      @workout.delete
-    end
+    @workout.delete if logged_in? && current_user.id == @workout.runner_id
     redirect to '/workouts'
   end
 

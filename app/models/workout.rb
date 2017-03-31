@@ -2,6 +2,10 @@ class Workout < ActiveRecord::Base
 
   belongs_to :runner
 
+  def self.all_workouts_by_runner_id_rev_chron(id)
+    self.where("runner_id = ?", id).order("workout_date DESC")
+  end
+
   def self.rankings(gender,period)
     case period
       when "All Time"
