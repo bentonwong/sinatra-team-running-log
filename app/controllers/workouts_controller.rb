@@ -15,7 +15,7 @@ class WorkoutsController < ApplicationController
   end
 
   get '/workouts/log/:runner_id' do
-    @runner = Runner.find_by_id(params[:runner_id])
+    @runner = find_runner_by_id(params[:runner_id])
     @workouts = Workout.where("runner_id = ?", @runner.id).order("workout_date DESC")
     logged_in? ? (erb :'workouts/log') : (redirect to '/login')
   end
@@ -40,8 +40,8 @@ class WorkoutsController < ApplicationController
 
   get '/workouts/:id' do
     if logged_in? && (current_user.id == session[:id])
-      @workout = Workout.find_by_id(params[:id])
-      @runner = Runner.find_by_id(@workout.runner_id)
+      @workout = find_workout_by_id(params[:id])
+      @runner = find_runner_by_id(@workout.runner_id)
       !!@workout ? (erb :'workouts/show_workout') : (redirect to '/workouts')
     else
       redirect to '/login'
@@ -49,7 +49,7 @@ class WorkoutsController < ApplicationController
   end
 
   get '/workouts/:id/edit' do
-    @workout = Workout.find_by_id(params[:id])
+    @workout = find_workout_by_id(params[:id])
     if logged_in?
       if current_user.id == @workout.runner_id
         !!@workout ? (erb :'workouts/edit_workout') : (redirect to '/workouts')
@@ -65,8 +65,8 @@ class WorkoutsController < ApplicationController
     if params[:distance].strip.empty?
       redirect to "/workouts/#{params[:id]}/edit"
     else
-      if !!Workout.find_by_id(params[:id])
-        @workout = Workout.find_by_id(params[:id])
+      if !!find_workout_by_id(params[:id])
+        @workout = find_workout_by_id(params[:id])
         current_user.id == @workout.runner_id if @workout.update_attributes(:distance => params[:distance],:workout_date => params[:workout_date],:notes => params[:notes])
       end
       redirect to "/workouts/#{@workout.id}"
@@ -74,7 +74,7 @@ class WorkoutsController < ApplicationController
   end
 
   delete '/workouts/:id/delete' do
-    @workout = Workout.find_by_id(params[:id])
+    @workout = find_workout_by_id(params[:id])
     if logged_in? && current_user.id == @workout.runner_id
       @workout.delete
     end

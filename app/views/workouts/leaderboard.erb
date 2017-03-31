@@ -10,8 +10,8 @@
     <% @time_periods.each do |time_period| %>
       <% @genders.each do |gender| %>
         <h2>Top Runners by Mileage | <%= gender.capitalize %> | <%= time_period %></h2>
-        <ol><% rankings(gender,time_period).each do |runner_id, runner_name, total_mileage| %>
-            <li><a href='/workouts/log/<%= runner_id %>'><%= runner_name %></a> - <%= total_mileage %> miles</li>
+        <ol><% rankings(gender,time_period).each do |runner_id, name, total_mileage| %>
+            <li><a href='/workouts/log/<%= runner_id %>'><%= name %></a> - <%= total_mileage %> miles</li>
         <% end %></ol>
       <% end %>
     <% end %>
