@@ -27,7 +27,7 @@ class WorkoutsController < ApplicationController
 
   post '/workouts' do
     if logged_in? && (current_user.id == session[:id])
-      if params[:distance].strip.empty?
+      if params[:distance].blank? && params[:workout_date].blank?
         redirect to '/workouts/new'
       else
         params[:runner_id] = current_user.id
@@ -73,7 +73,7 @@ class WorkoutsController < ApplicationController
     else
       if !!find_workout_by_id(params[:id])
         @workout = find_workout_by_id(params[:id])
-        current_user.id == @workout.runner_id if @workout.update_attributes(:distance => params[:distance],:workout_date => params[:workout_date],:notes => params[:notes])
+        @workout.update_attributes(:distance => params[:distance],:workout_date => params[:workout_date],:notes => params[:notes]) if current_user.id == @workout.runner_id
       end
       redirect to "/workouts/#{@workout.id}"
     end
