@@ -8,15 +8,10 @@
     <p>Hello, <a href="/workouts/log/<%= current_user.id %>"><%= current_user.name %></a>! (<a href='/logout'>logout</a>)</p>
     <p><b><%=@workout.workout_date.strftime("%a, %b %d, %Y") %> | Workout</b></p>
     <h2><%= @runner.name %> ran <%= @workout.distance %> miles.</h2>
-    <p><%= "Notes: " if !!@workout.notes %><%= @workout.notes %></p><br>
+    <p><i><%= @notes_label %></i><%= @workout.notes %></p><br>
     <p><i>Created on <%= @workout.created_at.strftime("%c %Z") %> • Last updated on <%= @workout.updated_at.strftime("%c %Z") %></i></p>
     <button type="button"><a href='/workouts' style="text-decoration:none">Go To My Workouts</a></button>
-    <button <%="style='display: none;'" if session[:id] != @workout.runner_id %> type="button"><a href="/workouts/<%= @workout.id %>/edit" style="text-decoration:none">Edit Workout</a></button>
-    <form <%="style='display: none;'" if session[:id] != @workout.runner_id %> action="/workouts/<%= @workout.id %>/delete" method="post">
-      <input id="hidden" type="hidden" name="_method" value="delete">
-      <input type="hidden" name="content">
-    <input type="submit"  value="Delete Workout">
-
-  </form>
+    <%= @edit_workout_button %>
+    <%= @delete_workout_button %>
   </body>
 </html>

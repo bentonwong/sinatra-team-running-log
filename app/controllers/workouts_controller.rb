@@ -17,6 +17,7 @@ class WorkoutsController < ApplicationController
   get '/workouts/log/:runner_id' do
     @runner = find_runner_by_id(params[:runner_id])
     @workouts = Workout.where("runner_id = ?", @runner.id).order("workout_date DESC")
+    @new_workout_button = "<button type='button'><a href='/workouts/new' style='text-decoration:none'>Log New Workout</a></button>" if session[:id] == @runner.id
     logged_in? ? (erb :'workouts/log') : (redirect to '/login')
   end
 
@@ -42,6 +43,11 @@ class WorkoutsController < ApplicationController
     if logged_in? && (current_user.id == session[:id])
       @workout = find_workout_by_id(params[:id])
       @runner = find_runner_by_id(@workout.runner_id)
+      if session[:id] == @runner.id
+        @edit_workout_button = "<button type='button'><a href='/workouts/#{@workout.id}/edit' style='text-decoration:none'>Edit Workout</a></button>" if session[:id] == @runner.id
+        @delete_workout_button = "<form action='/workouts/#{@workout.id}/delete' method='post'><input id='hidden' type='hidden' name='_method' value='delete'><input type='submit' value='Delete Workout'>"
+      end
+      @notes_label = "Notes: " if !@workout.notes.blank?
       !!@workout ? (erb :'workouts/show_workout') : (redirect to '/workouts')
     else
       redirect to '/login'
