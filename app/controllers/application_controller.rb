@@ -1,5 +1,6 @@
 require './config/environment'
 require 'pry'
+require 'date'
 
 class ApplicationController < Sinatra::Base
 
@@ -13,7 +14,14 @@ class ApplicationController < Sinatra::Base
   helpers Helpers
 
   get '/' do
-    erb :index
+    logged_in? ? (redirect to '/workouts') : (erb :index)
+  end
+
+  get '/leaderboard' do
+    @time_periods = ["This Month", "This Year" , "All Time"]
+    @genders = ["male","female"]
+    @current_time = Time.now
+    erb :leaderboard
   end
 
 end

@@ -1,6 +1,7 @@
 class Workout < ActiveRecord::Base
-
   belongs_to :runner
+
+  validates :workout_date, :distance, presence: true
 
   def self.all_workouts_by_runner_id_rev_chron(id)
     self.where("runner_id = ?", id).order("workout_date DESC")

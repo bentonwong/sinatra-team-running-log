@@ -3,22 +3,14 @@ require 'pry'
 
 class WorkoutsController < ApplicationController
 
-  configure do
-    set :public_folder, 'public'
-    set :views, 'app/views'
-    enable :sessions
-    set :session_secret, "password_security"
-  end
-
   get '/workouts' do
-    logged_in? ? (redirect to "/workouts/log/#{current_user.id}") : (redirect to '/login')
+    redirect to "/workouts/runner/#{current_user.id}"
   end
 
-  get '/workouts/log/:runner_id' do
-    @runner = find_runner_by_id(params[:runner_id])
+  get '/workouts/runner/:id' do
+    @runner = Runner.find_by_id(params[:id])
     @workouts = Workout.all_workouts_by_runner_id_rev_chron(@runner.id)
-    @new_workout_button = "<button type='button'><a href='/workouts/new' style='text-decoration:none'>Log New Workout</a></button>" if session[:id] == @runner.id
-    logged_in? ? (erb :'workouts/log') : (redirect to '/login')
+    logged_in? ? (erb :'workouts/workouts') : (redirect to '/login')
   end
 
   get '/workouts/new' do
@@ -27,69 +19,62 @@ class WorkoutsController < ApplicationController
 
   post '/workouts' do
     if logged_in? && (current_user.id == session[:id])
-      if params[:distance].blank? && params[:workout_date].blank?
+      if params[:distance].blank? || params[:workout_date].blank?
         redirect to '/workouts/new'
       else
         params[:runner_id] = current_user.id
         @runner = Workout.create(params)
-        redirect to "/workouts/log/#{current_user.id}"
+        redirect to "/workouts"
       end
-    else
-      redirect to '/'
-    end
-  end
-
-  get '/workouts/:id' do
-    if logged_in? && (current_user.id == session[:id])
-      @workout = find_workout_by_id(params[:id])
-      @runner = find_runner_by_id(@workout.runner_id)
-      if session[:id] == @runner.id
-        @edit_workout_button = "<button type='button'><a href='/workouts/#{@workout.id}/edit' style='text-decoration:none'>Edit Workout</a></button>" if session[:id] == @runner.id
-        @delete_workout_button = "<form action='/workouts/#{@workout.id}/delete' method='post'><input id='hidden' type='hidden' name='_method' value='delete'><input type='submit' value='Delete Workout'>"
-      end
-      @notes_label = "Notes: " if !@workout.notes.blank?
-      !!@workout ? (erb :'workouts/show_workout') : (redirect to '/workouts')
     else
       redirect to '/login'
     end
   end
 
-  get '/workouts/:id/edit' do
-    @workout = find_workout_by_id(params[:id])
+  get '/workouts/:workout_id' do
+    if logged_in? && (current_user.id == session[:id])
+      @workout = Workout.find_by_id(params[:workout_id])
+      @runner = Runner.find_by_id(@workout.runner_id)
+      if current_user.id == @workout.runner_id
+        @edit_workout_button = "<button type='button'><a href='/workouts/#{@workout.id}/edit' style='text-decoration:none'>Edit Workout</a></button>" if session[:id] == @runner.id
+        @delete_workout_button = "<form action='/workouts/#{@workout.id}' method='post'><input id='hidden' type='hidden' name='_method' value='delete'><input type='submit' value='Delete Workout'>"
+      end
+      @notes_label = "Notes: " if !@workout.notes.blank?
+      !!@workout ? (erb :'workouts/show_workout') : (redirect to "/workouts/#{current_user.id}")
+    else
+      redirect to '/login'
+    end
+  end
+
+  get '/workouts/:workout_id/edit' do
+    @workout = Workout.find_by_id(params[:workout_id])
     if logged_in?
       if current_user.id == @workout.runner_id
         !!@workout ? (erb :'workouts/edit_workout') : (redirect to '/workouts')
       else
-        redirect to '/workouts'
+        redirect to "/workouts"
       end
     else
       redirect to '/login'
     end
   end
 
-  patch '/workouts/:id' do
-    if params[:distance].strip.empty?
-      redirect to "/workouts/#{params[:id]}/edit"
+  patch '/workouts/:workout_id' do
+    if params[:distance].strip.blank? || params[:workout_date].strip.blank?
+      redirect to "/workouts/#{params[:workout_id]}/edit"
     else
-      if !!find_workout_by_id(params[:id])
-        @workout = find_workout_by_id(params[:id])
+      if !!Workout.find_by_id(params[:workout_id])
+        @workout = Workout.find_by_id(params[:workout_id])
         @workout.update_attributes(:distance => params[:distance],:workout_date => params[:workout_date],:notes => params[:notes]) if current_user.id == @workout.runner_id
       end
-      redirect to "/workouts/#{@workout.id}"
+      redirect to "/workouts"
     end
   end
 
-  delete '/workouts/:id/delete' do
-    @workout = find_workout_by_id(params[:id])
+  delete '/workouts/:workout_id' do
+    @workout = Workout.find_by_id(params[:workout_id])
     @workout.delete if logged_in? && current_user.id == @workout.runner_id
-    redirect to '/workouts'
-  end
-
-  get '/leaderboard' do
-    @time_periods = ["This Month", "This Year" , "All Time"]
-    @genders = ["male","female"]
-    @current_time = Time.now
-    erb :'workouts/leaderboard'
+    redirect to "/workouts"
   end
 
 end

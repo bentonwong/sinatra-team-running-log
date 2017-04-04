@@ -5,12 +5,12 @@
   </head>
   <body>
     <h1>LogMyRun</h1>
-    <p>Hello, <a href="/workouts/log/<%= current_user.id %>"><%= current_user.name %></a>! (<a href='/logout'>logout</a>)</p>
+    <p>Hello, <a href="/workouts"><%= current_user.name %></a>! (<a href='/logout'>logout</a>)</p>
     <p><b><%=@workout.workout_date.strftime("%a, %b %d, %Y") %> | Workout</b></p>
     <h2><%= @runner.name %> ran <%= @workout.distance %> miles.</h2>
     <p><i><%= @notes_label %></i><%= @workout.notes %></p><br>
     <p><i>Created on <%= @workout.created_at.strftime("%c %Z") %> • Last updated on <%= @workout.updated_at.strftime("%c %Z") %></i></p>
-    <button type="button"><a href='/workouts' style="text-decoration:none">Go To My Workouts</a></button>
+    <button type="button"><a href="/workouts" style="text-decoration:none">Go To My Workouts</a></button>
     <%= @edit_workout_button %>
     <%= @delete_workout_button %>
   </body>
