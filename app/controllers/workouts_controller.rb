@@ -32,7 +32,7 @@ class WorkoutsController < ApplicationController
   end
 
   get '/workouts/:workout_id' do
-    if logged_in? && (current_user.id == session[:id])
+    if logged_in?
       @workout = Workout.find_by_id(params[:workout_id])
       @runner = Runner.find_by_id(@workout.runner_id)
       if current_user.id == @workout.runner_id
@@ -40,7 +40,7 @@ class WorkoutsController < ApplicationController
         @delete_workout_button = "<form action='/workouts/#{@workout.id}' method='post'><input id='hidden' type='hidden' name='_method' value='delete'><input type='submit' value='Delete Workout'>"
       end
       @notes_label = "Notes: " if !@workout.notes.blank?
-      !!@workout ? (erb :'workouts/show_workout') : (redirect to "/workouts/#{current_user.id}")
+      !!@workout ? (erb :'workouts/show_workout') : (redirect to "/workouts")
     else
       redirect to '/login'
     end
