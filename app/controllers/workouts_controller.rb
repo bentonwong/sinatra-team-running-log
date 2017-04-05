@@ -37,10 +37,12 @@ class WorkoutsController < ApplicationController
     redirect to '/workouts' if !@workout
     @runner = Runner.find_by_id(@workout.runner_id)
     @notes_label = "Notes: " if !@workout.notes.blank?
+
     if current_user.id == @workout.runner_id
       @edit_workout_button = "<button type='button'><a href='/workouts/#{@workout.id}/edit' style='text-decoration:none'>Edit Workout</a></button>" if session[:id] == @runner.id
       @delete_workout_button = "<form action='/workouts/#{@workout.id}' method='post'><input id='hidden' type='hidden' name='_method' value='delete'><input type='submit' value='Delete Workout'>"
     end
+
     erb :'workouts/show_workout'
   end
 

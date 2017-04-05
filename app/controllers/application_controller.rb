@@ -1,6 +1,5 @@
 require './config/environment'
 require 'pry'
-require 'date'
 
 class ApplicationController < Sinatra::Base
 
