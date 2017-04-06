@@ -5,7 +5,7 @@
   </head>
   <body>
     <h1>LogMyRun</h1>
-    <p>Hello, <a href="/workouts"><%= current_user.name %></a>! (<a href='/logout'>logout</a>)</p>
+    <p>Hello, <a href='/workouts/runner/<%= current_user.id %>'><%= current_user.name %></a>! (<a href='/logout'>logout</a>)</p>
     <button type='button'><a href='/workouts/new' style='text-decoration:none'>Log New Workout</a></button>
     <button type="button"><a href='/leaderboard' style="text-decoration:none">Team Leaderboard</a></button>
     <h2><%= @runner.name %>'s Workouts</h2></button>

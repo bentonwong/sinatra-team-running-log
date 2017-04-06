@@ -3,11 +3,11 @@ require 'pry'
 module Helpers
 
   def logged_in?
-    !!session[:id]
+    !!current_user
   end
 
   def current_user
-    Runner.find_by_id(session[:id])
+    @current_user ||= Runner.find_by_id(session[:id])
   end
 
   def rankings(gender,period)
