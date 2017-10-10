@@ -20,7 +20,7 @@ group :test do
 end
 
 group :development do
- gem 'postgresql'
+ gem 'pg'
 end
 
 group :production do
