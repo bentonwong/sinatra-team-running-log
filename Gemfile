@@ -8,17 +8,17 @@ gem 'require_all'
 gem 'thin'
 gem 'bcrypt'
 gem 'pg'
+gem 'tux'
+gem 'shotgun'
+gem 'pry'
+gem 'rack-test'
+gem 'rspec'
 
 group :test do
-  gem 'rspec'
   gem 'capybara'
-  gem 'rack-test'
   gem 'database_cleaner', git: 'https://github.com/bmabey/database_cleaner.git'
 end
 
 group :development do
- gem 'pry'
  gem 'sqlite3'
- gem 'tux'
- gem 'shotgun'
 end
