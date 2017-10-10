@@ -1,4 +1,4 @@
-class CreateRunners < ActiveRecord::Migration
+class CreateRunners < ActiveRecord::Migration[5.1]
   def change
     create_table :runners do |t|
       t.string :username
