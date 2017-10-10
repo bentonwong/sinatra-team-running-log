@@ -13,7 +13,7 @@ class RunnersController < ApplicationController
     @runner = Runner.new(params)
     if !!@runner.save
       session[:id] = @runner.id
-      redirect to '/workouts'
+      redirect to "/workouts/runner/#{session[:id]}
     else
       erb :'runners/create_runner'
     end
