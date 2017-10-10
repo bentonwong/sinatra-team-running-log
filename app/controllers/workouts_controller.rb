@@ -20,7 +20,7 @@ class WorkoutsController < ApplicationController
 
   post '/workouts' do
     current_user.workouts.create(params)
-    redirect to '/workouts/runner/#{current_user.id}'
+    redirect to "/workouts/runner/#{current_user.id}"
   end
 
   get '/workouts/:workout_id' do
@@ -44,7 +44,7 @@ class WorkoutsController < ApplicationController
     if !!@workout
       current_user.id == @workout.runner_id ? (erb :'workouts/edit_workout') : (redirect to '/workouts')
     else
-      redirect to '/workouts/runner/#{current_user.id}'
+      redirect to "/workouts/runner/#{current_user.id}"
     end
   end
 
@@ -54,14 +54,14 @@ class WorkoutsController < ApplicationController
     if !!@workout && current_user.id == @workout.runner_id
       @workout.update_attributes(:distance => params[:distance],:workout_date => params[:workout_date],:notes => params[:notes])
     end
-    redirect to '/workouts/runner/#{current_user.id}'
+    redirect to "/workouts/runner/#{current_user.id}"
   end
 
   delete '/workouts/:workout_id' do
     redirect to '/login' if !logged_in?
     @workout = Workout.find_by_id(params[:workout_id])
     @workout.delete if current_user.id == @workout.runner_id && !!@workout
-    redirect to '/workouts/runner/#{current_user.id}'
+    redirect to "/workouts/runner/#{current_user.id}"
   end
 
 end

@@ -13,7 +13,7 @@ class ApplicationController < Sinatra::Base
   helpers Helpers
 
   get '/' do
-    logged_in? ? (redirect to '/workouts') : (erb :index)
+    logged_in? ? (redirect to "/workouts/runner/#{current_user.id}") : (erb :index)
   end
 
   get '/leaderboard' do

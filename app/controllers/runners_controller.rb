@@ -26,7 +26,7 @@ class RunnersController < ApplicationController
     @runner = Runner.find_by(email: params["email"])
     if !!@runner && @runner.authenticate(params[:password])
      session[:id] = @runner.id
-     redirect to '/workouts'
+     redirect to "/workouts/runner/#{session[:id]}"
     else
      redirect to '/login'
     end
