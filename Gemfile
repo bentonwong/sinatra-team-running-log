@@ -7,6 +7,7 @@ gem 'rake'
 gem 'require_all'
 gem 'thin'
 gem 'bcrypt'
+gem 'pg'
 
 group :test do
   gem 'rspec'
@@ -20,8 +21,4 @@ group :development do
  gem 'sqlite3'
  gem 'tux'
  gem 'shotgun'
-end
-
-group :production do
- gem 'pg'
 end
