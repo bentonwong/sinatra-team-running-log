@@ -5,7 +5,7 @@
   </head>
   <body>
     <h1>LogMyRun</h1>
-    <p>Hello, <a href="/workouts"><%= current_user.name %></a>! (<a href='/logout'>logout</a>)</p>
+    <p>Hello, <a href='/workouts/runner/<%= current_user.id %>'><%= current_user.name %></a>! (<a href='/logout'>logout</a>)</p>
     <p><i>Last updated <%= @current_time %></i></p>
     <% @time_periods.each do |time_period| %>
       <% @genders.each do |gender| %>
