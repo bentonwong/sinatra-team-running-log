@@ -1,5 +1,6 @@
 require './config/environment'
 require 'pry'
+require 'sinatra'
 
 class WorkoutsController < ApplicationController
 
