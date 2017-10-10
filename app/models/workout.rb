@@ -7,16 +7,18 @@ class Workout < ActiveRecord::Base
     self.where("runner_id = ?", id).order("workout_date DESC")
   end
 
-  def self.rankings(gender,period)
-    case period
-      when "All Time"
-        start_date = 0
-      when "This Year"
-        start_date = Time.now.beginning_of_year
-      when "This Month"
-        start_date = Time.now.beginning_of_month
+  def self.rankings(gender, period)
+    if period == "All Time"
+      query_results = self.where("gender = ?", gender).joins("INNER JOIN runners ON runners.id = workouts.runner_id")
+    else
+      case period
+        when "This Year"
+          start_date = Time.now.beginning_of_year
+        when "This Month"
+          start_date = Time.now.beginning_of_month
+      end
+      query_results = self.where("gender = ? AND workout_date >= ?", gender, start_date).joins("INNER JOIN runners ON runners.id = workouts.runner_id")
     end
-    query_results = self.where("gender = ? AND workout_date >= ?", gender, start_date).joins("INNER JOIN runners ON runners.id = workouts.runner_id")
     self.format_query_results_into_rankings(query_results)
   end
 
